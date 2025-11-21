@@ -6,7 +6,7 @@
 /*   By: msuizu <msuizu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 14:50:21 by minpple           #+#    #+#             */
-/*   Updated: 2025/11/22 00:14:54 by msuizu           ###   ########.fr       */
+/*   Updated: 2025/11/22 00:33:23 by msuizu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ char	*ft_strjoin(char *s1, char *s2)
 		string[++j] = s2[i];
 		i++;
 	}
+	free(s1);
 	string[++j] = '\0';
 	return (string);
 }

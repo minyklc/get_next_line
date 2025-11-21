@@ -6,7 +6,7 @@
 /*   By: msuizu <msuizu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 22:17:38 by minpple           #+#    #+#             */
-/*   Updated: 2025/11/22 00:21:38 by msuizu           ###   ########.fr       */
+/*   Updated: 2025/11/22 00:45:53 by msuizu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ char	*get_next_line(int fd)
 	{
 		line = ft_strdup(next);
 		free(next);
+		next = NULL;
 	}
 	else
 		line = ft_calloc(1, sizeof(char));
@@ -70,6 +71,7 @@ char	*get_next_line(int fd)
 		i++;
 	next = ft_strdup(&line[i + 1]);
 	line = ft_strndup(&line, i + 1);
+	free(buffer);
 	return (line);
 }
 
