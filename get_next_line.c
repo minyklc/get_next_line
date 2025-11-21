@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minpple <minpple@student.42.fr>            +#+  +:+       +#+        */
+/*   By: msuizu <msuizu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 22:17:38 by minpple           #+#    #+#             */
-/*   Updated: 2025/11/21 22:05:29 by minpple          ###   ########.fr       */
+/*   Updated: 2025/11/22 00:21:38 by msuizu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,17 @@ char	*get_next_line(int fd)
 
 	i = 0;
 	buffer = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
-	if (next == NULL)		
-		next = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
-	line = ft_strjoin(line, next);
+	if (next)
+	{
+		line = ft_strdup(next);
+		free(next);
+	}
+	else
+		line = ft_calloc(1, sizeof(char));
 	nb_read = 1;
 	while ((ft_strchr(line, '\n') == NULL) && nb_read > 0)
 	{
 		nb_read = read(fd, buffer, BUFFER_SIZE);
-		printf("%c\n", buffer[0]);
 		if (nb_read < 0)
 		{
 			free(buffer);
@@ -50,32 +53,39 @@ char	*get_next_line(int fd)
 			return (NULL);
 		}
 		line = ft_strjoin(line, buffer);
+		ft_bzero(buffer, BUFFER_SIZE);
+	}
+	if (nb_read == 0)
+	{
+		free(buffer);
+		if (*line)
+			return (line);
+		else
+		{
+			free(line);
+			return (NULL);
+		}
 	}
 	while (line[i] && line[i] != '\n')
 		i++;
-	if (line[i] == '\n')
-	{
-		next = ft_strdup(&line[i + 1]);
-		ft_bzero(&line[i + 1], BUFFER_SIZE);
-	}
-	printf("%c\n", buffer[0]);
+	next = ft_strdup(&line[i + 1]);
+	line = ft_strndup(&line, i + 1);
 	return (line);
 }
 
 int	main(void)
 {
 	int		fd;
-	int		i;
 	char	*s;
 	
-	i = 0;
 	fd = open("test.txt", O_RDONLY);
-	while (i < 1)
+	while (1)
 	{
 		s = get_next_line(fd);
-		ft_putstr(s);
+		if (s == NULL)
+			break ;
+		printf("%s", s);
 		free(s);
-		i++;
 	}
 	close(fd);
 	return (0);

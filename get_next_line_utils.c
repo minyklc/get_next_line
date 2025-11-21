@@ -3,49 +3,50 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minpple <minpple@student.42.fr>            +#+  +:+       +#+        */
+/*   By: msuizu <msuizu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 14:50:21 by minpple           #+#    #+#             */
-/*   Updated: 2025/11/21 22:16:19 by minpple          ###   ########.fr       */
+/*   Updated: 2025/11/22 00:14:54 by msuizu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*string;
 	int		i;
 	int		j;
 	int		len;
 
-	i = -1;
+	i = 0;
 	j = -1;
-	if (s1 == NULL)
-		string = ft_calloc(BUFFER_SIZE, sizeof(char));
-	else
-	{
-		len = ft_strlen((char *)s1) + ft_strlen((char *)s2);
-		string = ft_calloc(len + 1, sizeof(char));
-	}
+	len = ft_strlen(s1) + ft_strlen(s2);
+	string = malloc(sizeof(char) * len + 1);
 	if (string == NULL)
 		return (NULL);
-	while (s1 != NULL && s1[++i])
+	while (s1[i])
+	{
 		string[++j] = s1[i];
-	i = -1;
-	while (s2 != NULL && s2[++i])
+		i++;
+	}
+	i = 0;
+	while (s2[i])
+	{
 		string[++j] = s2[i];
+		i++;
+	}
 	string[++j] = '\0';
 	return (string);
 }
 
-char	*ft_strdup(const char *src)
+char	*ft_strdup(char *src)
 {
 	char	*str;
 	int		size;
 	int		i;
 
-	size = ft_strlen((char *)src);
+	size = ft_strlen(src);
 	i = 0;
 	str = ft_calloc(size + 1, sizeof(char));
 	if (str == NULL)
@@ -59,7 +60,28 @@ char	*ft_strdup(const char *src)
 	return (str);
 }
 
-int	ft_strlen(const char *s)
+char	*ft_strndup(char **src, size_t n)
+{
+	char	*str;
+	int		size;
+	int		i;
+
+	size = ft_strlen(*src);
+	i = 0;
+	str = ft_calloc(size + 1, sizeof(char));
+	if (str == NULL)
+		return (NULL);
+	while ((*src)[i] && (size_t)i < n)
+	{
+		str[i] = (*src)[i];
+		i++;
+	}
+	free(*src);
+	str[i] = '\0';
+	return (str);
+}
+
+int	ft_strlen(char *s)
 {
 	int	index;
 
@@ -69,7 +91,7 @@ int	ft_strlen(const char *s)
 	return (index);
 }
 
-char	*ft_strchr(const char *s, int c)
+char	*ft_strchr(char *s, int c)
 {
 	char	caracter;
 	int		i;
@@ -79,11 +101,11 @@ char	*ft_strchr(const char *s, int c)
 	while (s[i])
 	{
 		if (s[i] == caracter)
-			return (((char *)s) + i);
+			return ((s) + i);
 		i++;
 	}
 	if (caracter == '\0')
-		return (((char *)s) + i);
+		return ((s) + i);
 	return (NULL);
 }
 void    *ft_calloc(size_t nmemb, size_t size)

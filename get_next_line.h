@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minpple <minpple@student.42.fr>            +#+  +:+       +#+        */
+/*   By: msuizu <msuizu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 04:12:16 by minpple           #+#    #+#             */
-/*   Updated: 2025/11/21 22:05:42 by minpple          ###   ########.fr       */
+/*   Updated: 2025/11/22 00:15:29 by msuizu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,11 @@
 void	ft_bzero(void *tab, size_t n);
 void    *ft_calloc(size_t nmemb, size_t size);
 void	ft_putstr(char *s);
-int		ft_strlen(const char *s);
-char	*ft_strchr(const char *s, int c);
-char	*ft_strdup(const char *src);
-char	*ft_strjoin(char const *s1, char const *s2);
+int		ft_strlen(char *s);
+char	*ft_strchr(char *s, int c);
+char	*ft_strdup(char *src);
+char	*ft_strndup(char **src, size_t n);
+char	*ft_strjoin(char *s1, char *s2);
 char	*get_next_line(int fd);
 
 #endif
