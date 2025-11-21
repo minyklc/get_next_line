@@ -6,7 +6,7 @@
 /*   By: minpple <minpple@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 14:50:21 by minpple           #+#    #+#             */
-/*   Updated: 2025/11/21 22:05:59 by minpple          ###   ########.fr       */
+/*   Updated: 2025/11/21 22:16:19 by minpple          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,4 +85,38 @@ char	*ft_strchr(const char *s, int c)
 	if (caracter == '\0')
 		return (((char *)s) + i);
 	return (NULL);
+}
+void    *ft_calloc(size_t nmemb, size_t size)
+{
+    size_t    i;
+    size_t    total_size;
+    char    *ptr;
+
+    i = 0;
+    if (nmemb == 0 || size == 0)
+        return (malloc(0));
+    total_size = nmemb * size;
+    if (total_size / nmemb != size)
+        return (NULL);
+    ptr = malloc(total_size);
+    if (!ptr)
+        return (NULL);
+    while (i < nmemb * size)
+    {
+        ptr[i] = 0;
+        i++;
+    }
+    return (ptr);
+}
+
+void	ft_bzero(void *tab, size_t n)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < n)
+	{
+		((unsigned char *)tab)[i] = '\0';
+		i++;
+	}
 }
