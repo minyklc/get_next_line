@@ -6,57 +6,77 @@
 /*   By: minpple <minpple@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 22:17:38 by minpple           #+#    #+#             */
-/*   Updated: 2025/11/20 13:37:50 by minpple          ###   ########.fr       */
+/*   Updated: 2025/11/21 22:05:29 by minpple          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*get_next_line(int fd)
+void	ft_putstr(char *s)
 {
-	char	*line;
-	int		nb_read;
-    char	c;
-	int		i;
+	int	i;
 
-	nb_read = -1;
 	i = 0;
-	line = malloc(sizeof(char) * 1);
-	if (!line)
-		return (NULL);
-	nb_read = read(fd, &c, 1);
-	if (nb_read == -1)
+	while (s[i])
 	{
-		free(line);
-		return (line = NULL);
-	}
-	while (nb_read != 0 && i < BUFFER_SIZE && c != '\0' && c != '\n')
-	{
-		line[i] = c;
-		nb_read = read(fd, &c, 1);
-		line = ft_newmalloc(line, i + 1);
+		write(1, &s[i], 1);
 		i++;
 	}
-	while (nb_read != 0 && c != '\n' && c != '\0')
-		nb_read = read(fd, &c, 1);
-	if (c == '\n' || c == '\0')
-		line[i] = c;
+}
+
+char	*get_next_line(int fd)
+{
+	//static char	next[BUFFER_SIZE + 1];
+	static char	*next;
+	char		*line;
+	char		*buffer;
+	int			nb_read;
+	int			i;
+
+	i = 0;
+	buffer = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
+	if (next == NULL)		
+		next = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
+	line = ft_strjoin(line, next);
+	nb_read = 1;
+	while ((ft_strchr(line, '\n') == NULL) && nb_read > 0)
+	{
+		nb_read = read(fd, buffer, BUFFER_SIZE);
+		printf("%c\n", buffer[0]);
+		if (nb_read < 0)
+		{
+			free(buffer);
+			free(line);
+			return (NULL);
+		}
+		line = ft_strjoin(line, buffer);
+	}
+	while (line[i] && line[i] != '\n')
+		i++;
+	if (line[i] == '\n')
+	{
+		next = ft_strdup(&line[i + 1]);
+		ft_bzero(&line[i + 1], BUFFER_SIZE);
+	}
+	printf("%c\n", buffer[0]);
 	return (line);
 }
 
-int main(void)
+int	main(void)
 {
-	int	i;
-	char *test;
-
+	int		fd;
+	int		i;
+	char	*s;
+	
 	i = 0;
-    int fd = open("test.txt", O_RDONLY);
-	while (i < 9)
+	fd = open("test.txt", O_RDONLY);
+	while (i < 1)
 	{
-    	test = get_next_line(fd);
-    	ft_putstr(test);
-    	free(test);
+		s = get_next_line(fd);
+		ft_putstr(s);
+		free(s);
 		i++;
 	}
-    close(fd);
+	close(fd);
+	return (0);
 }

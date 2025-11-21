@@ -6,7 +6,7 @@
 /*   By: minpple <minpple@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 04:12:16 by minpple           #+#    #+#             */
-/*   Updated: 2025/11/19 15:34:04 by minpple          ###   ########.fr       */
+/*   Updated: 2025/11/21 22:05:42 by minpple          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,17 @@
 #endif
 
 # include <stdio.h>
-# include <fcntl.h>
-# include <stdlib.h>
 # include <unistd.h>
+# include <stdlib.h>
+# include <fcntl.h>
 
-char	*get_next_line(int fd);
+void	ft_bzero(void *tab, size_t n);
+void    *ft_calloc(size_t nmemb, size_t size);
 void	ft_putstr(char *s);
-char	*ft_newmalloc(char *before, int nb);
+int		ft_strlen(const char *s);
+char	*ft_strchr(const char *s, int c);
+char	*ft_strdup(const char *src);
+char	*ft_strjoin(char const *s1, char const *s2);
+char	*get_next_line(int fd);
 
 #endif
