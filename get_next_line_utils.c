@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msuizu <msuizu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: minpple <minpple@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 14:50:21 by minpple           #+#    #+#             */
-/*   Updated: 2025/11/22 00:33:23 by msuizu           ###   ########.fr       */
+/*   Updated: 2025/11/22 06:47:15 by minpple          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,16 +82,6 @@ char	*ft_strndup(char **src, size_t n)
 	return (str);
 }
 
-int	ft_strlen(char *s)
-{
-	int	index;
-
-	index = -1;
-	while (*(s + (++index)))
-		;
-	return (index);
-}
-
 char	*ft_strchr(char *s, int c)
 {
 	char	caracter;
@@ -109,37 +99,26 @@ char	*ft_strchr(char *s, int c)
 		return ((s) + i);
 	return (NULL);
 }
-void    *ft_calloc(size_t nmemb, size_t size)
-{
-    size_t    i;
-    size_t    total_size;
-    char    *ptr;
 
-    i = 0;
-    if (nmemb == 0 || size == 0)
-        return (malloc(0));
-    total_size = nmemb * size;
-    if (total_size / nmemb != size)
-        return (NULL);
-    ptr = malloc(total_size);
-    if (!ptr)
-        return (NULL);
-    while (i < nmemb * size)
-    {
-        ptr[i] = 0;
-        i++;
-    }
-    return (ptr);
-}
-
-void	ft_bzero(void *tab, size_t n)
+void	*ft_calloc(size_t nmemb, size_t size)
 {
+	char	*ptr;
 	size_t	i;
+	size_t	total_size;
 
 	i = 0;
-	while (i < n)
+	if (nmemb == 0 || size == 0)
+		return (malloc(0));
+	total_size = nmemb * size;
+	if (total_size / nmemb != size)
+		return (NULL);
+	ptr = malloc(total_size);
+	if (!ptr)
+		return (NULL);
+	while (i < nmemb * size)
 	{
-		((unsigned char *)tab)[i] = '\0';
+		ptr[i] = 0;
 		i++;
 	}
+	return (ptr);
 }

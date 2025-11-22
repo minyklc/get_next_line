@@ -3,70 +3,84 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msuizu <msuizu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: minpple <minpple@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 22:17:38 by minpple           #+#    #+#             */
-/*   Updated: 2025/11/22 00:45:53 by msuizu           ###   ########.fr       */
+/*   Updated: 2025/11/22 07:26:38 by minpple          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void	ft_putstr(char *s)
+void	ft_bzero(void *tab, size_t n)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
-	while (s[i])
+	while (i < n)
 	{
-		write(1, &s[i], 1);
+		((unsigned char *)tab)[i] = '\0';
 		i++;
 	}
 }
 
+int	ft_strlen(char *s)
+{
+	int	index;
+
+	index = -1;
+	while (*(s + (++index)))
+		;
+	return (index);
+}
+
+char	*ft_nomore(char **buffer, char **line)
+{
+	free(*buffer);
+	if (**line)
+		return (*line);
+	free(*line);
+	return (NULL);
+}
+
+int	ft_alloc(char **buffer, char **line, char **next, int *nb_read)
+{
+	*buffer = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
+	if (!(*buffer))
+		return (-1);
+	if (*next)
+	{
+		*line = ft_strdup(*next);
+		free(*next);
+		*next = NULL;
+	}
+	else
+		*line = ft_calloc(1, sizeof(char));
+	*nb_read = 1;
+	return (0);
+}
+
 char	*get_next_line(int fd)
 {
-	//static char	next[BUFFER_SIZE + 1];
 	static char	*next;
 	char		*line;
 	char		*buffer;
 	int			nb_read;
 	int			i;
 
-	i = 0;
-	buffer = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
-	if (next)
-	{
-		line = ft_strdup(next);
-		free(next);
-		next = NULL;
-	}
-	else
-		line = ft_calloc(1, sizeof(char));
-	nb_read = 1;
+	i = ft_alloc(&buffer, &line, &next, &nb_read);
+	if (i == -1)
+		return (NULL);
 	while ((ft_strchr(line, '\n') == NULL) && nb_read > 0)
 	{
 		nb_read = read(fd, buffer, BUFFER_SIZE);
 		if (nb_read < 0)
-		{
-			free(buffer);
-			free(line);
-			return (NULL);
-		}
+			return (free(buffer), free(line), NULL);
 		line = ft_strjoin(line, buffer);
 		ft_bzero(buffer, BUFFER_SIZE);
 	}
 	if (nb_read == 0)
-	{
-		free(buffer);
-		if (*line)
-			return (line);
-		else
-		{
-			free(line);
-			return (NULL);
-		}
-	}
+		return (ft_nomore(&buffer, &line));
 	while (line[i] && line[i] != '\n')
 		i++;
 	next = ft_strdup(&line[i + 1]);
@@ -75,7 +89,7 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
-int	main(void)
+/*int	main(void)
 {
 	int		fd;
 	char	*s;
@@ -91,4 +105,4 @@ int	main(void)
 	}
 	close(fd);
 	return (0);
-}
+}*/
