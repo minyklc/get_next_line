@@ -13,7 +13,7 @@ add the option '-D BUFFER_SIZE={nb of your choice beside negative value}'
 
 **--- Resources ---**
 
-file desciptor et read de code(quoi)
+functionning of the file descriptor https://www.codequoi.com/manipuler-un-fichier-a-laide-de-son-descripteur-en-c/ | no ai
 
 **--- Technical choices ---**
 
