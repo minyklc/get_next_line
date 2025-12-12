@@ -17,7 +17,7 @@ functionning of the file descriptor https://www.codequoi.com/manipuler-un-fichie
 
 **--- Technical choices ---**
 
-#get_next_line.c : contains prototype of get_next_line and 4 other helper functions + commented main
+\#get_next_line.c : contains prototype of get_next_line and 4 other helper functions + commented main
 
 \#get_next_line_utils.c : contains 5 more helper functions coded before from libft (strjoin, calloc, strchr, strdup, strndup)
 
