@@ -1,6 +1,6 @@
 _This project has been created as part of the 42 curriculum by msuizu_
 
-**...Description...**
+**---Description---**
 
 get_next_line is a function that returns the readed line from a file descriptor. it got the BUFFER_SIZE set by the user or by
 default defined at '1000', that represents the number of size 'read()' is allowed to.. read.
