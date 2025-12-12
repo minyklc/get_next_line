@@ -17,11 +17,11 @@ functionning of the file descriptor https://www.codequoi.com/manipuler-un-fichie
 
 **--- Technical choices ---**
 
-\#	get_next_line.c : contains prototype of get_next_line and 4 other helper functions + commented main
+#get_next_line.c : contains prototype of get_next_line and 4 other helper functions + commented main
 
-\#	get_next_line_utils.c : contains 5 more helper functions coded before from libft (strjoin, calloc, strchr, strdup, strndup)
+\#get_next_line_utils.c : contains 5 more helper functions coded before from libft (strjoin, calloc, strchr, strdup, strndup)
 
-\#	get_next_line.h : header file
+\#get_next_line.h : header file
 
 get_next_line read each time at least one time the size of BUFFER_SIZE and if needed, read while '\n' is not encountered and
 while read's return value is superior to 0. a static variable 'next' is used to store excess readen caracters. at first
