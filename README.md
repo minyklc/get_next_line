@@ -5,18 +5,15 @@ _This project has been created as part of the 42 curriculum by msuizu_
 get_next_line is a function that returns the readed line from a file descriptor. it got the BUFFER_SIZE set by the user or by
 default defined at '1000', that represents the number of size 'read()' is allowed to.. read.
 
-
 **...Instructions.**
 
 check with 'norminette', add a main.c or uncomment the main in get_next_line.c then
 compile with 'cc -Wall -Werror -Wextra', and if you would like to set the value of BUFFER_SIZE, 
 add the option '-D BUFFER_SIZE={nb of your choice beside negative value}'
 
-
 **...Resources...**
 
 file desciptor et read de code(quoi)
-
 
 **...Technical choices...**
 
